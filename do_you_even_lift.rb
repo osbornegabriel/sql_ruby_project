@@ -51,8 +51,8 @@ db.execute(create_table_cmd_lifting)
 db.execute(create_table_cmd_food)
 
 #This allows the user to input their lifting information
-def add_lifts()
-
+def add_lifts(db, body_weight, squats, bench_press, overhead_press, deadlifts, power_cleans, comments)
+    db.execute("INSERT INTO lifting (body_weight, squats, bench_press, overhead_press, deadlifts, power_cleans, comments) VALUES (?, ?, ?, ?, ?, ?, ?)", [body_weight, squats, bench_press, overhead_press, deadlifts, power_cleans, comments])
 end
 
 #This allows the user to input their food_log information
