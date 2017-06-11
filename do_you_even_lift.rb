@@ -26,7 +26,7 @@ db.results_as_hash = true
 create_table_cmd_lifting = <<-COVFEFE
   CREATE TABLE IF NOT EXISTS lifting(
     id INTEGER PRIMARY KEY,
-    date DATE,
+    date DATE ,
     body_weight INTEGER,
     squats INTEGER,
     bench_press INTEGER,
@@ -52,13 +52,13 @@ db.execute(create_table_cmd_lifting)
 db.execute(create_table_cmd_food)
 
 #This allows the user to input their lifting information
-def add_lifts(db, body_weight, squats, bench_press, overhead_press, deadlifts, power_cleans, comments)
-    db.execute("INSERT INTO lifting (body_weight, squats, bench_press, overhead_press, deadlifts, power_cleans, comments) VALUES (?, ?, ?, ?, ?, ?, ?)", [body_weight, squats, bench_press, overhead_press, deadlifts, power_cleans, comments])
+def add_lifts(db, date, body_weight, squats, bench_press, overhead_press, deadlifts, power_cleans, comments)
+    db.execute("INSERT INTO lifting (date, body_weight, squats, bench_press, overhead_press, deadlifts, power_cleans, comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [date, body_weight, squats, bench_press, overhead_press, deadlifts, power_cleans, comments])
 end
 
 #This allows the user to input their food_log information
-def add_macros(db, total_calories, total_fat, total_carbs, total_protein)
-  db.execute("INSERT INTO food_log (total_calories, total_fat, total_carbs, total_protein) VALUES (?, ?, ?, ?)", [total_calories, total_fat, total_carbs, total_protein])
+def add_macros(db, date, total_calories, total_fat, total_carbs, total_protein)
+  db.execute("INSERT INTO food_log (date, total_calories, total_fat, total_carbs, total_protein) VALUES (?, ?, ?, ?, ?)", [date, total_calories, total_fat, total_carbs, total_protein])
 end
 
 #This diplays the food_log table to user
@@ -90,6 +90,8 @@ def gather_lifts(db)
     #gather data from user for lifting log entry
     correct = nil
     until correct == 'y'
+      puts "What is the date for your entry? (Format as YYYY-MM-DD)"
+      date = gets.chomp
       puts "What is your body weight?"
       weight = gets.chomp
       puts "How much did you squat? (leave blank if did not squat)"
@@ -105,7 +107,7 @@ def gather_lifts(db)
       puts "Do you have any additional comments? (leave blank if no comments)"
       comments = gets.chomp
       #check data is correct with user
-      puts "This is what you inputted:"
+      puts "This is what you inputted for #{date}:"
       puts "Body Weight: #{weight}"
       puts "Squats: #{squats}"
       puts "Bench: #{bench}"
@@ -116,7 +118,7 @@ def gather_lifts(db)
       puts "Is this correct?(y/n)"
       correct = gets.chomp
     end
-    add_lifts(db, weight, squats, bench, press, deadlifts, cleans, comments)
+    add_lifts(db, date, weight, squats, bench, press, deadlifts, cleans, comments)
   else
     puts "Oh, nevermind then! Back to the menu we go!"
   end
@@ -134,6 +136,8 @@ def gather_macros(db)
     #gather data from user for lifting log entry
     correct = nil
     until correct == 'y'
+      puts "What is the date for your entry? (Format as YYYY-MM-DD)"
+      date = gets.chomp
       puts "How many calories did you eat today?"
       calories = gets.chomp
       puts "How many grams of fat did you eat today?"
@@ -151,7 +155,7 @@ def gather_macros(db)
       puts "Is this correct?(y/n)"
       correct = gets.chomp
     end
-    add_macros(db, calories, fat, carbs, protein)
+    add_macros(db, date, calories, fat, carbs, protein)
   else
     puts "Oh, nevermind then! Back to the menu we go!"
   end
