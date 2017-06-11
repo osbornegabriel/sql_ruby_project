@@ -76,8 +76,9 @@ def display_training
 end
 
 
-# ****Now we're going to create the methods that interact with the user
+# ****Now we're going to create the methods that interact with the user****
 
+#Gather's information from user, and uses to add entry to lifting table
 def gather_lifts
   new_session = nil
   until new_session == 'y' || new_session == 'n'
@@ -120,4 +121,36 @@ def gather_lifts
   end
 end
 
+def gather_macros
+  new_session = nil
+  until new_session == 'y' || new_session == 'n'
+    puts "You want to add a new entry to your food log, is that correct?(y/n)"
+    new_session = gets.chomp
+  end
+  if new_session == 'y'
+    #gather data from user for lifting log entry
+    correct = nil
+    until correct == 'y'
+      puts "How many calories did you eat today?"
+      calories = gets.chomp
+      puts "How many grams of fat did you eat today?"
+      fat = gets.chomp
+      puts "How many grams of carbohydrates did you eat today?"
+      carbs = gets.chomp
+      puts "How many grams of protein did you eat today?"
+      protein = gets.chomp
+      #check that data is correct with user
+      puts "This is what you inputted:"
+      puts "You ate #{calories} calories"
+      puts "You ate #{fat} grams of fat"
+      puts "You ate #{carbs} grams of carbohydrates"
+      puts "You ate #{protein} grams of protein"
+      puts "Is this correct?(y/n)"
+      correct = gets.chomp
+    end
+    add_macros(calories, fat, carbs, protein)
+  else
+    puts "Oh, nevermind then! Back to the menu we go!"
+  end
+end
 # gather_lifts
