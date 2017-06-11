@@ -22,3 +22,29 @@ require 'sqlite3'
 #create sqlite3 database
 db = SQLite3::Database.new("training_log.db")
 
+create_table_cmd_lifting = <<-COVFEFE
+  CREATE TABLE IF NOT EXISTS lifting(
+    id INTEGER PRIMARY KEY,
+    body_weight INTEGER,
+    squats INTEGER,
+    bench_press INTEGER,
+    overhead_press INTEGER,
+    deadlifts INTEGER,
+    power_cleans INTEGER,
+    comments VARCHAR (255)
+  )
+COVFEFE
+
+create_table_cmd_food = <<-COVFEFE2
+  CREATE TABLE IF NOT EXISTS food_log(
+    id INTEGER PRIMARY KEY,
+    date TIMESTAMP,
+    total_calories INTEGER,
+    total_fat INTEGER,
+    total_carbs INTEGER,
+    total_protein INTEGER
+    )
+COVFEFE2
+
+db.execute(create_table_cmd_lifting)
+db.execute(create_table_cmd_food)
