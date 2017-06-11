@@ -50,19 +50,24 @@ COVFEFE2
 db.execute(create_table_cmd_lifting)
 db.execute(create_table_cmd_food)
 
+#This allows the user to input their lifting information
 def add_lifts()
 
 end
 
+#This allows the user to input their food_log information
 def add_macros()
 
 end
 
+#This diplays the food_log table to user
 def display_food_log
 end
 
+#This displays the lifting table to user
 def display_lifts
 end
 
+#This displays both tables to the user
 def display_training
 end
