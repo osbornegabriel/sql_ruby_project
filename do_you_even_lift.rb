@@ -171,21 +171,22 @@ def user_interface
       puts "5 - Add new entry into food log"
       puts "6 - Exit"
       choice = gets.chomp.to_i
-      # case choice
-      # when 1
-      #   display_training
-      # when 2
-      #   display_food_log
-      # when 3
-      #   display_lifts
-      # when 4
-      #   add_macros
-      # when 5
-      #   add_lifts
-      # when 6
-      #   exit = true
-      # else
-      #   puts "You didn't choose any entries from 1-6. Let's try that again"
+      case choice
+      when 1
+        display_training
+      when 2
+        display_food_log
+      when 3
+        display_lifts
+      when 4
+        add_macros
+      when 5
+        add_lifts
+      when 6
+        exit = true
+      else
+        puts "You didn't choose any entries from 1-6. Let's try that again"
+      end
     end
     wish_to_exit = nil
     until exit == true || wish_to_exit == 'y' || wish_to_exit == 'n'
