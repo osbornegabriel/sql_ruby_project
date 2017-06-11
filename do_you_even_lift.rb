@@ -72,7 +72,15 @@ end
 
 #This displays the lifting table to user
 def display_lifts(db)
-  p db.execute("SELECT * FROM lifting")
+  lifting_data = db.execute("SELECT * FROM lifting")
+  lifting_data.each do |lifts|
+    puts "On #{lifts['date']} you weighed #{lifts['body_weight']}. These we're your lifts for that day:"
+        puts "You squatted #{lifts['squats']}lbs " if lifts['squats'] != ""
+        puts "You benched #{lifts['bench_press']} lbs" if lifts['bench_press'] != ""
+        puts "You pressed #{lifts['overhead_press']} lbs" if lifts['overhead_press'] != ""
+        puts "You deadlifted #{lifts['deadlifts']} lbs" if lifts['deadlifts'] != ""
+        puts "You power cleaned #{lifts['power_cleans']} lbs" if lifts['power_cleans'] != ""
+    end
 end
 
 #This displays both tables to the user
