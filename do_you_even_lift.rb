@@ -25,7 +25,7 @@ db = SQLite3::Database.new("training_log.db")
 create_table_cmd_lifting = <<-COVFEFE
   CREATE TABLE IF NOT EXISTS lifting(
     id INTEGER PRIMARY KEY,
-    date TIMESTAMP,
+    date DATE,
     body_weight INTEGER,
     squats INTEGER,
     bench_press INTEGER,
@@ -39,7 +39,7 @@ COVFEFE
 create_table_cmd_food = <<-COVFEFE2
   CREATE TABLE IF NOT EXISTS food_log(
     id INTEGER PRIMARY KEY,
-    date TIMESTAMP,
+    date DATE,
     total_calories INTEGER,
     total_fat INTEGER,
     total_carbs INTEGER,
@@ -62,12 +62,15 @@ end
 
 #This diplays the food_log table to user
 def display_food_log
+  p db.execute("SELECT * FROM food_log")
 end
 
 #This displays the lifting table to user
 def display_lifts
+  p db.execute("SELECT * FROM lifting")
 end
 
 #This displays both tables to the user
 def display_training
+    p db.execute("SELECT * FROM food_log JOIN lifting ON food_log.date = lifting.date;")
 end
