@@ -74,3 +74,50 @@ end
 def display_training
     p db.execute("SELECT * FROM food_log JOIN lifting ON food_log.date = lifting.date;")
 end
+
+
+# ****Now we're going to create the methods that interact with the user
+
+def gather_lifts
+  new_session = nil
+  until new_session == 'y' || new_session == 'n'
+  puts "You want to add a new lifting session, is that correct?(y/n)"
+    new_session = gets.chomp
+  end
+  if new_session == 'y'
+    #gather data from user for lifting log entry
+    correct = nil
+    until correct == 'y'
+      puts "What is your body weight?"
+      weight = gets.chomp
+      puts "How much did you squat? (leave blank if did not squat)"
+      squats = gets.chomp
+      puts "How much did you bench? (leave blank if did not bench)"
+      bench = gets.chomp
+      puts "How much did you press? (leave blank if did not overhead press)"
+      press = gets.chomp
+      puts "How much did you deadlift? (leave blank if did not deaflift)"
+      deadlifts = gets.chomp
+      puts "How much did you power clean? (leave blank if did not power clean)"
+      cleans = gets.chomp
+      puts "Do you have any additional comments? (leave blank if no comments)"
+      comments = gets.chomp
+      #check data is correct with user
+      puts "This is what you inputted:"
+      puts "Body Weight: #{weight}"
+      puts "Squats: #{squats}"
+      puts "Bench: #{bench}"
+      puts "Press: #{press}"
+      puts "Deadlifts: #{deadlifts}"
+      puts "Cleans: #{cleans}"
+      puts "Comments: #{comments}"
+      puts "Is this correct?(y/n)"
+      correct = gets.chomp
+    end
+    add_lifts(weight, squats, bench, press, deadlifts, cleans, comments)
+  else
+    puts "Oh, nevermind then! Back to the menu we go!"
+  end
+end
+
+# gather_lifts
