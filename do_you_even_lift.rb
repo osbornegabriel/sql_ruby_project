@@ -56,8 +56,8 @@ def add_lifts(db, body_weight, squats, bench_press, overhead_press, deadlifts, p
 end
 
 #This allows the user to input their food_log information
-def add_macros()
-
+def add_macros(total_calories, total_fat, total_carbs, total_protein)
+  db.execute("INSERT INTO food_log (total_calories, total_fat, total_carbs, total_protein) VALUES (?, ?, ?, ?)", [total_calories, total_fat, total_carbs, total_protein])
 end
 
 #This diplays the food_log table to user
