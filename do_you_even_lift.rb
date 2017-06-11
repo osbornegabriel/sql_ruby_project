@@ -12,7 +12,7 @@
   2) Allow a user to input either into the Lifting or FoodLog tables
   3) Once the tables are selected will prompt for each value
   4) Will execute one of two available methods for input, using the inputted values as arguments
-  ext - User can also display the contents of one or both tables. (Provide 4 options, attached to integers, for initial inquiry to user?)
+  ext - User can also display the contents of one or both tables. (Provide 3 options, attached to integers, for initial inquiry to user?)
 
 =end
 
@@ -25,6 +25,7 @@ db = SQLite3::Database.new("training_log.db")
 create_table_cmd_lifting = <<-COVFEFE
   CREATE TABLE IF NOT EXISTS lifting(
     id INTEGER PRIMARY KEY,
+    date TIMESTAMP,
     body_weight INTEGER,
     squats INTEGER,
     bench_press INTEGER,
@@ -48,3 +49,20 @@ COVFEFE2
 
 db.execute(create_table_cmd_lifting)
 db.execute(create_table_cmd_food)
+
+def add_lifts()
+
+end
+
+def add_macros()
+
+end
+
+def display_food_log
+end
+
+def display_lifts
+end
+
+def display_training
+end
