@@ -21,6 +21,7 @@ require 'sqlite3'
 
 #create sqlite3 database
 db = SQLite3::Database.new("training_log.db")
+db.results_as_hash = true
 
 create_table_cmd_lifting = <<-COVFEFE
   CREATE TABLE IF NOT EXISTS lifting(
@@ -56,22 +57,22 @@ def add_lifts(db, body_weight, squats, bench_press, overhead_press, deadlifts, p
 end
 
 #This allows the user to input their food_log information
-def add_macros(total_calories, total_fat, total_carbs, total_protein)
+def add_macros(db, total_calories, total_fat, total_carbs, total_protein)
   db.execute("INSERT INTO food_log (total_calories, total_fat, total_carbs, total_protein) VALUES (?, ?, ?, ?)", [total_calories, total_fat, total_carbs, total_protein])
 end
 
 #This diplays the food_log table to user
-def display_food_log
+def display_food_log(db)
   p db.execute("SELECT * FROM food_log")
 end
 
 #This displays the lifting table to user
-def display_lifts
+def display_lifts(db)
   p db.execute("SELECT * FROM lifting")
 end
 
 #This displays both tables to the user
-def display_training
+def display_training(db)
     p db.execute("SELECT * FROM food_log JOIN lifting ON food_log.date = lifting.date;")
 end
 
@@ -79,7 +80,7 @@ end
 # ****Now we're going to create the methods that interact with the user****
 
 #Gather's information from user, and uses to add entry to lifting table
-def gather_lifts
+def gather_lifts(db)
   new_session = nil
   until new_session == 'y' || new_session == 'n'
   puts "You want to add a new lifting session, is that correct?(y/n)"
@@ -115,7 +116,7 @@ def gather_lifts
       puts "Is this correct?(y/n)"
       correct = gets.chomp
     end
-    add_lifts(weight, squats, bench, press, deadlifts, cleans, comments)
+    add_lifts(db, weight, squats, bench, press, deadlifts, cleans, comments)
   else
     puts "Oh, nevermind then! Back to the menu we go!"
   end
@@ -123,7 +124,7 @@ end
 
 
 #gathers information from user, and uses to create new entry to food_log table
-def gather_macros
+def gather_macros(db)
   new_session = nil
   until new_session == 'y' || new_session == 'n'
     puts "You want to add a new entry to your food log, is that correct?(y/n)"
@@ -150,14 +151,14 @@ def gather_macros
       puts "Is this correct?(y/n)"
       correct = gets.chomp
     end
-    add_macros(calories, fat, carbs, protein)
+    add_macros(db, calories, fat, carbs, protein)
   else
     puts "Oh, nevermind then! Back to the menu we go!"
   end
 end
 
 #*****Now we're going to ask the user what they wish to do!!!
-def user_interface
+def user_interface(db)
   exit = nil
   until exit == true
     choice = 0
@@ -173,15 +174,15 @@ def user_interface
       choice = gets.chomp.to_i
       case choice
       when 1
-        display_training
+        display_training(db)
       when 2
-        display_food_log
+        display_food_log(db)
       when 3
-        display_lifts
+        display_lifts(db)
       when 4
-        add_macros
+        gather_lifts(db)
       when 5
-        add_lifts
+        gather_macros(db)
       when 6
         exit = true
       else
@@ -202,4 +203,4 @@ def user_interface
   puts "Keep on training hard, have a great day!"
 end
 
-user_interface
+user_interface(db)
