@@ -73,7 +73,7 @@ end
 
 #This displays both tables to the user
 def display_training(db)
-    p db.execute("SELECT * FROM food_log JOIN lifting ON food_log.date = lifting.date;")
+    p db.execute("SELECT food_log.date, food_log.total_calories, food_log.total_fat, food_log.total_carbs, food_log.total_protein, lifting.body_weight, lifting.squats, lifting.bench_press, lifting.overhead_press, lifting.deadlifts, lifting.power_cleans FROM food_log JOIN lifting ON food_log.date = lifting.date;")
 end
 
 
