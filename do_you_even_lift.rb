@@ -73,7 +73,18 @@ end
 
 #This displays both tables to the user
 def display_training(db)
-    p db.execute("SELECT food_log.date, food_log.total_calories, food_log.total_fat, food_log.total_carbs, food_log.total_protein, lifting.body_weight, lifting.squats, lifting.bench_press, lifting.overhead_press, lifting.deadlifts, lifting.power_cleans FROM food_log JOIN lifting ON food_log.date = lifting.date;")
+    training_data =  db.execute("SELECT food_log.date, food_log.total_calories, food_log.total_fat, food_log.total_carbs, food_log.total_protein, lifting.body_weight, lifting.squats, lifting.bench_press, lifting.overhead_press, lifting.deadlifts, lifting.power_cleans FROM food_log JOIN lifting ON food_log.date = lifting.date;")
+    training_data.each do |training|
+      print "On #{training['date']} you ate #{training['total_calories']} calories, #{training['total_fat']} grams of fat, #{training['total_carbs']} #{training['total_carbs']} grams of carbohydrates, and #{training['total_protein']} grams of protein."
+      if training['body_weight'] != nil
+        puts "You also trained that day! You weighed #{training['body_weight']}. These we're your lifts for the day:"
+        puts "You squatted #{training['squats']}lbs " if training['squats'] != ""
+        puts "You benched #{training['bench_press']} lbs" if training['bench_press'] != ""
+        puts "You pressed #{training['overhead_press']} lbs" if training['overhead_press'] != ""
+        puts "You deadlifted #{training['deadlifts']} lbs" if training['deadlifts'] != ""
+        puts "You power cleaned #{training['power_cleans']} lbs" if training['power_cleans'] != ""
+      end
+    end
 end
 
 
