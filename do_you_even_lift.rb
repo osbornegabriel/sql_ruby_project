@@ -160,6 +160,7 @@ end
 def user_interface
   exit = nil
   until exit == true
+    choice = 0
     until choice < 7 && choice > 0
       puts "What would you like to do today?"
       puts "Please select an option (by typing the matching integer):"
@@ -199,3 +200,5 @@ def user_interface
   end
   puts "Keep on training hard, have a great day!"
 end
+
+user_interface
