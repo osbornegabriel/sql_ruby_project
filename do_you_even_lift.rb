@@ -15,3 +15,10 @@
   ext - User can also display the contents of one or both tables. (Provide 4 options, attached to integers, for initial inquiry to user?)
 
 =end
+
+#require gems
+require 'sqlite3'
+
+#create sqlite3 database
+db = SQLite3::Database.new("training_log.db")
+
