@@ -121,6 +121,8 @@ def gather_lifts
   end
 end
 
+
+#gathers information from user, and uses to create new entry to food_log table
 def gather_macros
   new_session = nil
   until new_session == 'y' || new_session == 'n'
@@ -153,4 +155,47 @@ def gather_macros
     puts "Oh, nevermind then! Back to the menu we go!"
   end
 end
-# gather_lifts
+
+#*****Now we're going to ask the user what they wish to do!!!
+def user_interface
+  exit = nil
+  until exit == true
+    until choice < 7 && choice > 0
+      puts "What would you like to do today?"
+      puts "Please select an option (by typing the matching integer):"
+      puts "1 - View all training information"
+      puts "2 - View food log"
+      puts "3 - View lifting log"
+      puts "4 - Add new entry into lifting log"
+      puts "5 - Add new entry into food log"
+      puts "6 - Exit"
+      choice = gets.chomp.to_i
+      # case choice
+      # when 1
+      #   display_training
+      # when 2
+      #   display_food_log
+      # when 3
+      #   display_lifts
+      # when 4
+      #   add_macros
+      # when 5
+      #   add_lifts
+      # when 6
+      #   exit = true
+      # else
+      #   puts "You didn't choose any entries from 1-6. Let's try that again"
+    end
+    wish_to_exit = nil
+    until exit == true || wish_to_exit == 'y' || wish_to_exit == 'n'
+      puts "Are you finished for today?(y/n)"
+      wish_to_exit = gets.chomp
+    end
+    if wish_to_exit == 'n'
+      exit = false
+    else
+      exit = true
+    end
+  end
+  puts "Keep on training hard, have a great day!"
+end
