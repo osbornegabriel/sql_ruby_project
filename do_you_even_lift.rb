@@ -63,7 +63,11 @@ end
 
 #This diplays the food_log table to user
 def display_food_log(db)
-  p db.execute("SELECT * FROM food_log")
+  food_data = db.execute("SELECT * FROM food_log")
+  food_data.each do |macros|
+    puts "On #{macros['date']} you ate #{macros['total_calories']} calories, #{macros['total_fat']} grams of fat, #{macros['total_carbs']} #{macros['total_carbs']} grams of carbohydrates, and #{macros['total_protein']} grams of protein."
+  end
+
 end
 
 #This displays the lifting table to user
