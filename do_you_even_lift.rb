@@ -51,6 +51,8 @@ COVFEFE2
 db.execute(create_table_cmd_lifting)
 db.execute(create_table_cmd_food)
 
+#****Now for some methods!
+
 #This allows the user to input their lifting information
 def add_lifts(db, date, body_weight, squats, bench_press, overhead_press, deadlifts, power_cleans, comments)
     db.execute("INSERT INTO lifting (date, body_weight, squats, bench_press, overhead_press, deadlifts, power_cleans, comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [date, body_weight, squats, bench_press, overhead_press, deadlifts, power_cleans, comments])
@@ -87,7 +89,7 @@ end
 def display_training(db)
     training_data =  db.execute("SELECT food_log.date, food_log.total_calories, food_log.total_fat, food_log.total_carbs, food_log.total_protein, lifting.body_weight, lifting.squats, lifting.bench_press, lifting.overhead_press, lifting.deadlifts, lifting.power_cleans FROM food_log JOIN lifting ON food_log.date = lifting.date;")
     training_data.each do |training|
-      print "On #{training['date']} you ate #{training['total_calories']} calories, #{training['total_fat']} grams of fat, #{training['total_carbs']} #{training['total_carbs']} grams of carbohydrates, and #{training['total_protein']} grams of protein."
+      print "On #{training['date']} you ate #{training['total_calories']} calories, #{training['total_fat']} grams of fat, #{training['total_carbs']} grams of carbohydrates, and #{training['total_protein']} grams of protein."
       if training['body_weight'] != nil
         puts "You also trained that day! You weighed #{training['body_weight']}. These we're your lifts for the day:"
         puts "You squatted #{training['squats']}lbs " if training['squats'] != ""
@@ -192,7 +194,7 @@ def user_interface(db)
     until choice < 7 && choice > 0
       puts "What would you like to do today?"
       puts "Please select an option (by typing the matching integer):"
-      puts "1 - View all training information"
+      puts "1 - View all training information (days in which you both lifted and recorded calories)"
       puts "2 - View food log"
       puts "3 - View lifting log"
       puts "4 - Add new entry into lifting log"
